@@ -1,0 +1,72 @@
+RewriteEngine On
+<Files "homePrivate.pem">  
+  Order Allow,Deny
+  Deny from all
+</Files>
+<Files "homePulic.pem">  
+  Order Allow,Deny
+  Deny from all
+</Files>
+<Files "serverPrivate.pem">  
+  Order Allow,Deny
+  Deny from all
+</Files>
+<Files "serverPublic.pem">  
+  Order Allow,Deny
+  Deny from all
+</Files>
+<Files .env>
+    Order allow,deny
+    Deny from all
+</Files>
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+</IfModule>
+#Xử lý Route ADMIN
+# RewriteEngine On
+# RewriteBase /
+# RewriteRule ^([^/]+)/([^/]+)/?$ index.php?module=$1&action=$2 [QSA,L]
+# RewriteRule ^home/payment\.php$ - [L]
+# RewriteRule ^home/payment$ index.php?module=home&action=payment [QSA,L]
+RewriteRule ^admin/projects/add index.php?module=admin&action=projects/add [L]
+RewriteRule ^admin/projects/edit/([A-Za-z0-9-]+) index.php?module=admin&action=projects/edit&id=$1 [L]
+RewriteRule ^admin/projects/delete/([A-Za-z0-9-]+) index.php?module=admin&action=projects/delete&id=$1 [L]
+RewriteRule ^admin/users/add index.php?module=admin&action=users/add [L]
+RewriteRule ^admin/users/edit/([A-Za-z0-9-]+) index.php?module=admin&action=users/edit&id=$1 [L]
+RewriteRule ^admin/users/delete/([A-Za-z0-9-]+) index.php?module=admin&action=users/delete&id=$1 [L]
+RewriteRule ^admin/chitietduan2/([0-9]+) index.php?module=admin&action=chitietduan2&id=$1 [L]
+
+
+
+RewriteRule ^home/chitiet/([A-Za-z0-9-]+) index.php?module=home&action=chitiet&id=$1 [L]
+RewriteRule ^home/category/([A-Za-z0-9-]+) index.php?module=home&action=category&id=$1 [L]
+RewriteRule ^home/payment/([A-Za-z0-9-]+) index.php?module=home&action=payment&phone=$1 [L]
+RewriteRule ^admin/blog-edit/([A-Za-z0-9-]+) index.php?module=admin&action=blog-edit&id=$1 [L]
+RewriteRule ^admin/bank-edit/([A-Za-z0-9-]+) index.php?module=admin&action=bank-edit&id=$1 [L]
+RewriteRule ^admin/user-edit/([A-Za-z0-9-]+) index.php?module=admin&action=user-edit&id=$1 [L]
+RewriteRule ^admin/([A-Za-z0-9-]+) index.php?module=admin&action=$1 [L]
+RewriteRule ^admin index.php?module=admin&action= [L]
+
+# Xử lý Route user
+RewriteRule ^user/([A-Za-z0-9-]+) index.php?module=user&action=$1 [L]
+RewriteRule ^user index.php?module=user&action= [L]
+#Xử lý Route home
+RewriteRule ^home/home/([A-Za-z0-9-]+) index.php?module=home&action=home&shop=$1 [L]
+
+#default
+RewriteRule ^home/([A-Za-z0-9-]+) index.php?module=home&action=$1 [L]
+RewriteRule ^home index.php?module=home&action= [L]
+
+
+# RewriteRule ^home/vcb/history/([A-Za-z0-9-]+) index.php?module=home&action=history&id=$1 [L]
+
+# RewriteRule ^home/vcb index.php?module=home&action=vcb/listvcb [L]
+#Xử lý nạp tiền
+RewriteRule ^recharge/([A-Za-z0-9-]+) index.php?module=home&action=$1 [L]
+#Xử lý Route COMMON
+RewriteRule ^common/([A-Za-z0-9-]+) index.php?module=common&action=$1 [L]
+#cron naptien
+RewriteRule ^cron/momo cron/momo.php [L]
+ErrorDocument 404 /404.php
